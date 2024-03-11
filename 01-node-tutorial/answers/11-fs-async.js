@@ -1,50 +1,32 @@
-const { writeFile } = require('fs');
+const { writeFile, readFileSync } = require('fs');
 
 const file = "./temporary/fileB.txt";
 console.log('start');
 
-const writeLine = (i) => {
-  writeFile(file, `I am line ${i}.\n`, { flag: 'a' }, (err) => {
-    if (err) {
-      console.log(`Error writing line ${i}:`, err);
-    } else {
-      console.log(`Line ${i} written.`);
-    }
-  });
-};
+writeFile(file, 'This is line 1\n', { flag: 'a' }, (err, result) => {
+  console.log("at point 1");
 
-// Calls writeLine three times
-writeLine(1);
-writeLine(2);
-writeLine(3);
+  if (err) {
+    console.log("This error happened:", err);
+    return;
+  } else {
 
-// function calls are initiated (not necessarily completed)
-console.log("Initiated writing lines asynchronously.");
+    writeFile(file, 'This is line 2\n', { flag: 'a' }, (err, result) => {
+      console.log("at point 2");
 
-/*
-const writeLine = (line, callback) => {
-  writeFile(file, line, { flag: 'a' }, callback);
-};
+      if (err) {
+        console.log('This error happened:', err);
+      } else {
 
-const writeLinesToFileAsync = (i) => {
- const writeNext = () => {
-    if (i > 0) {
-      writeLine(`I am ${i} line.\n`, (err) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        console.log(`Line ${i} written.`);
-        i--; 
-        writeNext(); 
-      });
-    } else {
-      console.log("Done writing lines asynchronously.");
-    }
-  };
+        writeFile(file, 'This is line 3\n', { flag: 'a' }, (err, result) => {
+          console.log("at point 3");
+          if (err) {
+            console.log('This error happened:', err);
+          }
+        })
+      }
+    })
+  }
+})
 
-  writeNext(); // recursion
-};
-
-writeLinesToFileAsync(3);
-*/
+console.log("at end");
