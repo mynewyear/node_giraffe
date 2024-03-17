@@ -1,4 +1,5 @@
 const http = require("http");
+//comment
 var StringDecoder = require("string_decoder").StringDecoder;
 
 const getBody = (req, callback) => {
@@ -53,6 +54,7 @@ const form = (resultMessage = "") => {
           document.getElementById('result').textContent = 'Result: ' + text;
         });
         .catch(error => console.error('Error:', error));
+
       };
     </script>
   </body>
@@ -82,6 +84,10 @@ const server = http.createServer((req, res) => {
   }
   }
 );
+
+server.on("request", (req) => {
+  console.log("event received: ", req.method, req.url);
+});
 
 server.listen(3000);
 console.log("The server is listening on port 3000.");

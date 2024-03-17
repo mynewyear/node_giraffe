@@ -8,4 +8,5 @@ writeFileSync(
   { flag: 'a' } //a - append to the end of a file, w will rewrite
 )
 const result = readFileSync('./temporary/fileA.txt', 'utf8');
+
 console.log(result);
