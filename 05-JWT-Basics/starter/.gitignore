@@ -1,2 +1,4 @@
 /node_modules
 .env
+/preferred/.env
+/preferred/node_modules
